@@ -25,6 +25,14 @@ const routes = [
     meta: {
       requiresAuth: true  // Indicates this route should only be accessed if user is authenticated
     }
+  },
+  {
+    path: '/investing',
+    name: 'Investing',
+    component: () => import('@/views/HomeView.vue'),
+    meta: {
+      requiresAuth: true  // Indicates this route should only be accessed if user is authenticated
+    }
   }
 ]
 

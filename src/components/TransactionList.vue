@@ -1,6 +1,9 @@
 <template>
     <div class="transactions-list">
-        <h3>Your Transactions</h3>
+        <h3>Your Transactions
+            <button @click="clearAllTransactions" class="text-button">(Clear all)</button>
+            
+        </h3>
         <table>
             <thead>
                 <tr>
@@ -27,7 +30,7 @@ import { ref, onMounted, } from 'vue';  // Make sure 'expose' is imported if usi
 import { db, auth } from '@/firebaseConfig';
 
 export default {
-  setup() {
+  setup(props, context) {
     const transactions = ref([]);
 
     const fetchTransactions = async () => {
@@ -49,6 +52,22 @@ export default {
       });
     };
 
+    const clearAllTransactions = async () => {
+      const userId = auth.currentUser.uid;
+      const transactionsSnapshot = await db.collection('transactions').doc(userId).collection('userTransactions').get();
+
+      const batch = db.batch();
+      transactionsSnapshot.forEach(doc => {
+        batch.delete(doc.ref);
+      });
+      
+      await batch.commit();
+
+      // Clear the local transactions list or refetch to update
+      transactions.value = [];
+      context.emit('transaction-submitted');
+    };
+
     // Call `fetchTransactions` when component is mounted
     onMounted(() => {
       fetchTransactions();
@@ -56,6 +75,7 @@ export default {
 
     return {
       transactions,
+      clearAllTransactions,
       fetchTransactions  // This exposes the method to the template and via refs
     };
   },
@@ -79,7 +99,7 @@ export default {
 }
 
 table {
-    width: 80%;  /* Adjust width as needed */
+    /* width: 80%;  Adjust width as needed */
     border-collapse: collapse;
     margin: 0 auto; /* To center the table */
 }
@@ -104,5 +124,22 @@ tr:nth-child(even) {
 
 tr:hover {
     background-color: #ddd;
+}
+
+.text-button {
+    background: none;
+    border: none;
+    color: inherit;  /* Makes the button inherit the font color of its parent */
+    font-family: inherit;  /* Makes the button inherit the font family of its parent */
+    font-size: inherit;  /* Makes the button inherit the font size of its parent */
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    outline: none;  /* Removes the default browser outline on focus */
+    text-decoration: none;
+}
+
+.text-button:hover {
+    text-decoration: underline;  /* Underline on hover for a subtle effect */
 }
 </style>

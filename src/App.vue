@@ -3,8 +3,11 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav> -->
-  <AppNavbar v-if="isAuthenticated" />
+  <AppNavbar :is-authenticated="isAuthenticated" />
   <router-view/>
+  <footer>
+    Made by Benjamin Grant. Github: https://github.com/benwgrant/personal-finance-tracker
+  </footer>
 </template>
 
 <script>
@@ -52,4 +55,6 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
+
 </style>

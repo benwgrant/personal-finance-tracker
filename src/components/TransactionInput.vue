@@ -27,19 +27,36 @@ export default {
 
         const submitTransaction = async () => {
             const userId = auth.currentUser.uid;
+
+            // Fetch current net worth
+            const netWorthDocRef = db.collection('netWorths').doc(userId);
+            const netWorthDoc = await netWorthDocRef.get();
+            let currentNetWorth = netWorthDoc.exists ? netWorthDoc.data().amount : 0;
+
             const transaction = {
                 name: name.value,
                 amount: amount.value,
                 type: type.value,
                 date: new Date() // storing the current date and time
             };
-            
+
+            // Subtract transaction amount from current net worth
+            currentNetWorth -= transaction.amount;
+
             try {
+                // Add the transaction
                 await db.collection('transactions').doc(userId).collection('userTransactions').add(transaction);
                 console.log("Transaction added successfully");
+
+                // Update net worth
+                await netWorthDocRef.set({
+                    amount: currentNetWorth
+                }, { merge: true });
+
                 context.emit('transaction-submitted');  // Use context.emit instead of this.$emit
+                context.emit('networth-updated');
             } catch (error) {
-                console.error("Error adding transaction:", error);
+                console.error("Error:", error);
             }
         };
 

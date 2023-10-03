@@ -6,6 +6,10 @@
         <input v-model="password" type="password" placeholder="Password" required>
         <button type="submit">Sign Up</button>
       </form>
+      <p>
+        You can use a random email/password
+      </p>
+      <p>Already have an account? <router-link to="/login">Log in</router-link></p>
     </div>
   </template>
   

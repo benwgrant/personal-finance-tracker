@@ -2,8 +2,16 @@
   <div class="home">
     <NetWorthDisplay ref="netWorthDisplay" :netWorth="currentNetWorth" />
     <NetWorthInput @networth-updated="updateNetWorth" />
-    <TransactionInput @transaction-submitted="refreshTransactionTable"/>
-    <TransactionList ref="transactionTable" />
+    <TransactionInput 
+      @transaction-submitted="refreshTransactionTable"
+      @networth-updated="updateNetWorth"
+      />
+    <div class="flex-container">
+      <TransactionList ref="transactionTable"
+      @transaction-submitted="refreshTransactionTable"
+      />
+      <BarGraphs ref="transactionGraph" />
+    </div>
   </div>
 </template>
 
@@ -12,6 +20,7 @@ import NetWorthInput from '@/components/NetWorthInput.vue';
 import NetWorthDisplay from '@/components/NetWorthDisplay.vue';
 import TransactionInput from '@/components/TransactionInput.vue';
 import TransactionList from '@/components/TransactionList.vue';
+import BarGraphs from '@/components/BarGraphs.vue'
 
 export default {
   name: 'HomeView',
@@ -19,7 +28,8 @@ export default {
     NetWorthInput,
     NetWorthDisplay,
     TransactionInput,
-    TransactionList
+    TransactionList,
+    BarGraphs
   },
   data() {
     return {
@@ -33,8 +43,27 @@ export default {
     },
     refreshTransactionTable() {
       this.$refs.transactionTable.fetchTransactions();
+      this.$refs.transactionGraph.fetchAndProcessTransactions();
     }
   }
 }
 </script>
 
+<style scoped>
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  width: 90%;
+  padding: 1rem;
+}
+
+.flex-container > TransactionList {
+  width: 70%;
+}
+
+.flex-container > BarGraphs {
+  width: 20%;
+}
+
+</style>

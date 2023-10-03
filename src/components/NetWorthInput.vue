@@ -54,10 +54,10 @@ export default {
 </script>
   
 <style scoped>
-.net-worth-input {
-  padding: 20px;
-  margin-bottom: 20px;
+.net-worth-input input {
+  height: 20px;
 }
+
 button { 
     color:#050; 
     font: old 84% Avenir; 
@@ -71,5 +71,25 @@ button {
 button:hover {
   background-color: #4CAF50; /* Green */
   color: white;
+}
+
+.add-form {
+  margin-bottom: 40px;
+}
+
+.form-control {
+  margin: 20px 0;
+}
+
+.form-control label {
+  display: block;
+}
+
+.form-control input {
+  width: 100%;
+  height: 40px;
+  margin: 5px;
+  padding: 3px 7px;
+  font-size: 17px;
 }
 </style>
