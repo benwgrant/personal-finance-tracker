@@ -1,19 +1,31 @@
 <template>
   <div class="home">
-    <NetWorthInput />
+    <NetWorthDisplay ref="netWorthDisplay" :netWorth="currentNetWorth" />
+    <NetWorthInput @networth-updated="updateNetWorth" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import NetWorthInput from '@/components/NetWorthInput.vue';
-
-
+import NetWorthDisplay from '@/components/NetWorthDisplay.vue';
 
 export default {
   name: 'HomeView',
   components: {
-    NetWorthInput
+    NetWorthInput,
+    NetWorthDisplay
+  },
+  data() {
+    return {
+      currentNetWorth: null
+    };
+  },
+  methods: {
+    updateNetWorth(newNetWorth) {
+      this.currentNetWorth = newNetWorth;
+      this.$refs.netWorthDisplay.fetchCurrentNetWorth();
+    }
   }
 }
 </script>
+

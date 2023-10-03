@@ -33,10 +33,24 @@ const router = createRouter({
   routes
 })
 
+let isAuthReady = false;
+
+auth.onAuthStateChanged(() => {
+  if (!isAuthReady) {
+    isAuthReady = true;
+    router.replace(router.currentRoute.value.query.redirect || '/');
+  }
+});
+
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   const requiresNoAuth = to.matched.some(record => record.meta.requiresNoAuth);
   const isAuthenticated = auth.currentUser;
+
+  if (!isAuthReady) {
+    // If auth isn't ready, just wait. Don't do anything.
+    return;
+  }
 
   if (requiresAuth && !isAuthenticated) {
     // Redirect to login page if user is not authenticated

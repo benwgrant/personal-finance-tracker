@@ -3,8 +3,33 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav> -->
+  <AppNavbar v-if="isAuthenticated" />
   <router-view/>
 </template>
+
+<script>
+import { ref, onMounted } from 'vue';
+import { auth } from '@/firebaseConfig';
+import AppNavbar from '@/components/AppNavbar.vue'; // adjust the path based on your folder structure
+
+export default {
+  components: {
+    AppNavbar
+  },
+  setup() {
+    const isAuthenticated = ref(false);
+
+    // Listen for changes in authentication state
+    onMounted(() => {
+      auth.onAuthStateChanged(user => {
+        isAuthenticated.value = !!user;
+      });
+    });
+
+    return { isAuthenticated };
+  }
+}
+</script>
 
 <style>
 #app {

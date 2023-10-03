@@ -12,6 +12,7 @@
   <script>
   import { ref } from 'vue';
   import { auth } from '@/firebaseConfig';
+  import router from '@/router';
   
   export default {
     name: 'SignUpView',
@@ -24,7 +25,7 @@
           await auth.createUserWithEmailAndPassword(email.value, password.value);
           console.log('User created successfully');
           // Navigate to home view after successful sign-up
-          this.$router.push('/');
+          router.push({ name: 'Login' });
         } catch (error) {
           console.error('Error signing up:', error);
         }
