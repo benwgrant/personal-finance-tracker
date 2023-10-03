@@ -6,7 +6,7 @@
     <div class="actions">
       <div class="change-page">
         <router-link to="/">Home</router-link> |
-        <router-link to="/investing">About</router-link>
+        <router-link to="/investing">Investments</router-link>
       </div>
       <button v-if="isAuthenticated" @click="logout">Logout</button>
     </div>

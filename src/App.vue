@@ -5,9 +5,9 @@
   </nav> -->
   <AppNavbar :is-authenticated="isAuthenticated" />
   <router-view/>
-  <footer>
+  <!-- <footer>
     Made by Benjamin Grant. Github: https://github.com/benwgrant/personal-finance-tracker
-  </footer>
+  </footer> -->
 </template>
 
 <script>
