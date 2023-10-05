@@ -13,7 +13,7 @@
 <script>
 import { ref, onMounted } from 'vue';
 import { auth } from '@/firebaseConfig';
-import AppNavbar from '@/components/AppNavbar.vue'; // adjust the path based on your folder structure
+import AppNavbar from '@/components/AppNavbar.vue';
 
 export default {
   components: {
