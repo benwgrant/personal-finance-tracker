@@ -69,7 +69,7 @@ button {
 }
 
 button:hover {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   color: white;
 }
 

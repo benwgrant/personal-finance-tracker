@@ -58,7 +58,7 @@ nav {
 }
 
 .change-page {
-    margin-right: 20px;  /* This gives some space between the links and the logout button */
+    margin-right: 20px;
 }
 
 

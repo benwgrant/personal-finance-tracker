@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { ref, onMounted, } from 'vue';  // Make sure 'expose' is imported if using Vue 3.2+
+import { ref, onMounted, } from 'vue'; 
 import { db, auth } from '@/firebaseConfig';
 
 export default {
@@ -47,9 +47,12 @@ export default {
           name: data.name,
           amount: data.amount,
           type: data.type,
-          date: data.date.toDate().toLocaleString()
+          date: data.date.toDate().toLocaleString(),
+          timestamp: data.date.toDate()
         });
       });
+
+      transactions.value.sort((a, b) => b.timestamp - a.timestamp);
     };
 
     const clearAllTransactions = async () => {
@@ -76,7 +79,7 @@ export default {
     return {
       transactions,
       clearAllTransactions,
-      fetchTransactions  // This exposes the method to the template and via refs
+      fetchTransactions
     };
   },
 }
@@ -99,9 +102,8 @@ export default {
 }
 
 table {
-    /* width: 80%;  Adjust width as needed */
     border-collapse: collapse;
-    margin: 0 auto; /* To center the table */
+    margin: 0 auto; 
 }
 
 table, th, td {
@@ -129,17 +131,17 @@ tr:hover {
 .text-button {
     background: none;
     border: none;
-    color: inherit;  /* Makes the button inherit the font color of its parent */
-    font-family: inherit;  /* Makes the button inherit the font family of its parent */
-    font-size: inherit;  /* Makes the button inherit the font size of its parent */
+    color: inherit; 
+    font-family: inherit;
+    font-size: inherit; 
     padding: 0;
     cursor: pointer;
     text-align: left;
-    outline: none;  /* Removes the default browser outline on focus */
+    outline: none;
     text-decoration: none;
 }
 
 .text-button:hover {
-    text-decoration: underline;  /* Underline on hover for a subtle effect */
+    text-decoration: underline;
 }
 </style>

@@ -27,7 +27,7 @@ export default {
       datasets: [
         {
           label: 'Spending by Category',
-          backgroundColor: [],  // This will be updated later
+          backgroundColor: [],
           data: []
         }
       ]
@@ -36,7 +36,7 @@ export default {
       responsive: true,
       plugins: {
         legend: {
-            display: false // This will hide the legend
+            display: false
         }
     }
     };
@@ -55,7 +55,11 @@ export default {
           categoryData[data.type] = 0;
           colorsUsed.push(colorOptions[colorsUsed.length % colorOptions.length]); // Cycle through the colors
         }
-        categoryData[data.type] += data.amount;
+        if (data.type === "Payment (To you!)"){
+          categoryData[data.type] += data.amount;
+        } else {
+          categoryData[data.type] -= data.amount;
+        }
       });
 
       chartData.value = {
@@ -89,7 +93,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: top;
-  width: 100%;  /* Ensure the container takes up the full width of its parent */
+  width: 100%; 
   margin-top: 20px;
 }
 
@@ -97,13 +101,13 @@ h3 {
   margin-bottom: 15px; 
   font-weight: bold;
   font-size: 24px;  
-  text-align: top;  /* Center align the text for the title */
+  text-align: top; 
 }
 
 #transactions {
-  width: 80%;  /* The graph will take up 80% of its container's width */
-  max-width: 600px;  /* You can adjust this to fit your needs */
-  height: 400px; /* Adjust the height as needed */
-  margin: 0 auto;  /* Centers the chart within its container */
+  width: 80%; 
+  max-width: 600px;
+  height: 400px;
+  margin: 0 auto;
 }
 </style>

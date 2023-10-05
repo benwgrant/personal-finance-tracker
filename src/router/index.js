@@ -15,7 +15,7 @@ const routes = [
     name: 'Login',
     component: () => import('@/views/LoginView.vue'),
     meta: {
-      requiresNoAuth: true // Indicates this route should NOT be accessed if user is authenticated
+      requiresNoAuth: true
     }
   },
   {
@@ -23,7 +23,7 @@ const routes = [
     name: 'Home',
     component: () => import('@/views/HomeView.vue'),
     meta: {
-      requiresAuth: true  // Indicates this route should only be accessed if user is authenticated
+      requiresAuth: true
     }
   },
   {
@@ -31,7 +31,7 @@ const routes = [
     name: 'Investing',
     component: () => import('@/views/InvestingView.vue'),
     meta: {
-      requiresAuth: true  // Indicates this route should only be accessed if user is authenticated
+      requiresAuth: true
     }
   }
 ]
